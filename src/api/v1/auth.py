@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from src.api.dependencies import user_service
 from src.helper_functions.auth_handler import get_current_user, bcrypt_context, create_access_token, \
     create_refresh_token
-from src.schemas.user import UserCreate
+from src.schemas.user import UserRegistration, UserCreate
 from src.services.user import UserService
 
 from sqlalchemy.exc import IntegrityError
@@ -20,12 +20,21 @@ auth_router = APIRouter(prefix="/v1/auth", tags=["auth"])
     summary="Регистрация пользователя.",
 )
 async def add_user(
-        user: UserCreate,
+        user: UserRegistration,
         users_service: Annotated[UserService, Depends(user_service)],
 ):
     try:
-        user_id = await users_service.add_user(user)
-        return user_id
+        if user.password == user.confirm_password:
+            user = UserCreate(
+                firstname=user.firstname,
+                lastname=user.lastname,
+                email=user.email,
+                password=user.password,
+            )
+            user_id = await users_service.add_user(user)
+            return user_id
+        else:
+            raise HTTPException(status_code=400, detail="Пароли не совпадают")
     except IntegrityError as e:
         if "duplicate key value" in str(e):
             raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует")

@@ -8,11 +8,20 @@ class UserRead(BaseModel):
     lastname: str
 
 
+class UserRegistration(BaseModel):
+    firstname: str
+    lastname: str
+    email: EmailStr
+    password: str
+    confirm_password: str
+
+
 class UserCreate(BaseModel):
     firstname: str
     lastname: str
     email: EmailStr
     password: str
+
 
 
 class LoginInput(BaseModel):
