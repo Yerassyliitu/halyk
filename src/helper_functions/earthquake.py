@@ -1,6 +1,13 @@
 import urllib.request
 import json
 import datetime
+from translate import Translator
+
+
+def translate_text(text, target_language='ru'):
+    translator = Translator(to_lang=target_language)
+    translation = translator.translate(text)
+    return translation
 
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -38,7 +45,7 @@ async def fetch_earthquakes(user_latitude, user_longitude, minutes, radius):
     :param radius: Радиус в километрах для поиска землетрясений
     :return: Список сообщений о землетрясениях
     """
-    response = urllib.request.urlopen("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson")
+    response = urllib.request.urlopen("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson")
     jsonResponse = json.load(response)
 
     current_time = datetime.datetime.now()
@@ -65,16 +72,17 @@ async def fetch_earthquakes(user_latitude, user_longitude, minutes, radius):
 
             message = {
                 "magnitude": magnitude,
-                "location": location,
+                "location": translate_text(location),
                 "readableTime": readableTime,
                 "distance_km": distance_km
             }
+
             all_messages.append(message)
             print(
                 f"Recent Earthquake of M {magnitude} near {location} at {readableTime}. Distance: {distance_km:.2f} km.")
 
+    print(len(all_messages))
     return all_messages
-
 
 # Пример использования функции
 # user_latitude = 43.222015

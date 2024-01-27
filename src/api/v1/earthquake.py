@@ -16,7 +16,7 @@ async def get_earthquakes(
 ):
     longitude = geolocation.user_longitude
     latitude = geolocation.user_latitude
-    earthquakes = await fetch_earthquakes(latitude, longitude, 1000000000, 1000)
+    earthquakes = await fetch_earthquakes(latitude, longitude, 3000, 500)
     if earthquakes:
         return earthquakes
     else:
