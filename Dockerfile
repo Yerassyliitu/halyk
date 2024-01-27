@@ -17,5 +17,4 @@ RUN  apt-get update && apt-get install -y python3-pip && pip install -r requirem
 
 COPY . .
 
-RUN alembic upgrade head
 CMD uvicorn main:app --host 0.0.0.0 --port $PORT
