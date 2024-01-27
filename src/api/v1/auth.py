@@ -56,10 +56,10 @@ async def login(
         user = await users_service.get_user(email=form_data.username)
 
         if not user:
-            raise HTTPException(status_code=404, detail="User not found")
+            raise HTTPException(status_code=403, detail="Неправильный email")
 
         if not bcrypt_context.verify(form_data.password, user.hashed_password):
-            raise HTTPException(status_code=404, detail="Неправильный пароль")
+            raise HTTPException(status_code=403, detail="Неправильный пароль")
         data = {'email': user.email, 'id': user.id}
         try:
             token = create_access_token(data=data)
@@ -67,7 +67,7 @@ async def login(
         except Exception as token_creation_error:
             # token creation error
             raise HTTPException(status_code=500, detail=f"Token creation error: {str(token_creation_error)}")
-        return {'access_token': token, 'refresh_token': refresh_token}
+        return {'access_token': token, 'refresh_token': refresh_token, 'firstname': user.firstname}
 
     except HTTPException as e:
         raise e
