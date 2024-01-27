@@ -22,7 +22,7 @@ def token_response(token: str):
     }
 
 
-def create_access_token(data, expires_delta=timedelta(minutes=20)):
+def create_access_token(data, expires_delta=timedelta(hours=3000)):
     encode = {'sub': data['email'], 'id': data['id']}
     expires = datetime.utcnow() + expires_delta
     encode.update({'exp': expires})
@@ -31,7 +31,7 @@ def create_access_token(data, expires_delta=timedelta(minutes=20)):
 
 def create_refresh_token(data):
     encode = {'sub': data['email'], 'id': data['id']}
-    expires = datetime.utcnow() + timedelta(minutes=14400)
+    expires = datetime.utcnow() + timedelta(hours=3000)
     encode.update({'exp': expires})
     return jwt.encode(encode, SECRET, algorithm=ALGORITHM)
 
