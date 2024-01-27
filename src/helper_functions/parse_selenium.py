@@ -12,9 +12,9 @@ def parse_selenium_and_bs4(field1, field2, field3, field4, field5, field6, field
     chrome_options.add_argument("--disable-dev-shm-usage")
 
     chrome_options.headless = True
-    # chrome_version = "97.0.4692.99"
+    chrome_version = "97.0.4692.99"
     # Initialize Chrome driver with ChromeDriverManager
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version=chrome_version).install()), options=chrome_options)
 
     # Navigate to the URL
     url = 'https://calc.halyklife.kz/Calc06.aspx'
