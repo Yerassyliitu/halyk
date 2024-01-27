@@ -20,6 +20,7 @@ class UserService:
     async def get_users(self):
         users = await self.users_repo.get_all()
         return users
+
     async def get_user(self, **filters):
         user = await self.users_repo.get_one(**filters)
         return user

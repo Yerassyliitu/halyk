@@ -30,6 +30,7 @@ async def add_user(
                 lastname=user.lastname,
                 email=user.email,
                 password=user.password,
+                phone_number=user.phone_number
             )
             user_id = await users_service.add_user(user)
             return user_id

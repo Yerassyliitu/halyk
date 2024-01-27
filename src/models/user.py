@@ -8,7 +8,7 @@ class User(Base):
     __tablename__ = "User"
     id = Column(BigInteger, primary_key=True)
     email = Column(String, nullable=False, unique=True)
-
+    phone_number = Column(String, nullable=True, unique=True)
     hashed_password: str = Column(String(length=1024), nullable=False)
 
     firstname = Column(String, nullable=False)
@@ -20,6 +20,7 @@ class User(Base):
             email=self.email,
             firstname=self.firstname,
             lastname=self.lastname,
+            phone_number=self.phone_number,
         )
 
 

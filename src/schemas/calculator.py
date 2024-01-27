@@ -2,13 +2,14 @@ from pydantic import BaseModel
 
 
 class CalculatorPost(BaseModel):
-    field1: str
-    field2: str
-    field3: str
-    field4: str
-    field5: str
-    field6: str
-    field7: str
-    field8: str
-    class Config:
+    date_of_birth: str
+    gender: str
+    insurance_coverage_duration_years: str
+    premium_payment_period_years: str
+    premium_payment_frequency: str
+    tt_insurance_sum: str
+    total_insurance_sum: str
+    insurance_premium: str
+
+    class from_attributes:
         orm_mode = True

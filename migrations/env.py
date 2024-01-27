@@ -12,7 +12,7 @@ from settings.database.database_connection import metadata
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 from src.models.user import User
-
+from src.models.application import Application
 config = context.config
 
 section = config.config_ini_section
