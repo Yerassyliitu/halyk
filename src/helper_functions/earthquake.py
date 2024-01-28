@@ -45,7 +45,7 @@ async def fetch_earthquakes(user_latitude, user_longitude, minutes, radius):
     :param radius: Радиус в километрах для поиска землетрясений
     :return: Список сообщений о землетрясениях
     """
-    response = urllib.request.urlopen("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson")
+    response = urllib.request.urlopen("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson")
     jsonResponse = json.load(response)
 
     current_time = datetime.datetime.now()
